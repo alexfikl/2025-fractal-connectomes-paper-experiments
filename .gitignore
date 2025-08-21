@@ -1,0 +1,5 @@
+.ruff_cache
+/*.npz
+/*.mat
+*.png
+*.json

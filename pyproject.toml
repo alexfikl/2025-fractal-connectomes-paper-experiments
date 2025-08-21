@@ -1,3 +1,16 @@
+[project]
+name = "fractal-connectomes-paper-experiments"
+version = "1.0.0"
+license = "MIT"
+maintainers = [ { name = "Alexandru Fikl", email = "alexfikl@gmail.com" } ]
+authors = [ { name = "Alexandru Fikl", email = "alexfikl@gmail.com" } ]
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=2.2.0",
+    "scipy>=1.15.0",
+    "rich>=14.0.0",
+]
+
 [tool.ruff]
 line-length = 88
 
