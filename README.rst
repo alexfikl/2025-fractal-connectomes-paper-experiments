@@ -15,7 +15,7 @@ This repository contains some scripts that were used to generate the equi-M
 sets from the paper. The versions of all the dependencies are fixed and should
 allow for reproducible results.
 
-We use the [just](https://github.com/casey/just) command runner to help automate
+We use the `just <https://github.com/casey/just>`__ command runner to help automate
 the equi-M set generation.
 
 Install
