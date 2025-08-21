@@ -172,8 +172,8 @@ exhibit_emotion_negative:
 # }}}
 # {{{ run
 
-[doc("Run exhibits using netbrot")]
-run directory:
+[doc("Generate equi-M sets using netbrot")]
+equim directory:
     #!/usr/bin/env bash
     set -Eeuo pipefail
 
@@ -183,7 +183,7 @@ run directory:
     }
 
     suffix="{{ NETBROT_RESOLUTION }}x{{ NETBROT_MAXIT }}-$(date "+%Y%m%d")"
-    for filename in {{ directory }}/*-avg.json; do
+    for filename in {{ directory }}/*.json; do
         with_echo {{ NETBROT }} \
             --render mandelbrot \
             --resolution {{ NETBROT_RESOLUTION }} \
@@ -192,48 +192,63 @@ run directory:
             "${filename}"
     done
 
+[doc("Generate Fourier parametrizations for equi-M sets")]
+fourier directory:
+    {{ PYTHON }} scripts/fourier-parametrize.py \
+        --overwrite \\
+        --outfile {{ directory }}_fourier.mat \
+        {{ directory }}/exhibit-{{ NETBROT_RESOLUTION }}x{{ NETBROT_MAXIT }}-*.png
+
 [doc("Generate all equi-M sets")]
-generate: gen_structural gen_structural_random gen_rest gen_rest_positive gen_rest_negative gen_emotion gen_emotion_positive gen_emotion_negative
+generate: generate_structural generate_structural_random generate_rest generate_rest_positive generate_rest_negative generate_emotion generate_emotion_positive generate_emotion_negative
 
 [doc("Generate structural equi-M sets")]
-gen_structural:
+generate_structural:
     just exhibit_structural
-    just run exhibit_structural
+    just equim exhibit_structural
+    just fourier exhibit_structural
 
 [doc("Generate random structural equi-M sets")]
-gen_structural_random:
+generate_structural_random:
     just exhibit_structural_random
-    just run exhibit_structural_random
+    just equim exhibit_structural_random
+    just fourier exhibit_structural_random
 
 [doc("Generate rest equi-M sets")]
-gen_rest:
+generate_rest:
     just exhibit_rest
-    just run exhibit_rest
+    just equim exhibit_rest
+    just fourier exhibit_rest
 
 [doc("Generate positive rest equi-M sets")]
-gen_rest_positive:
+generate_rest_positive:
     just exhibit_rest_positive
-    just run exhibit_rest_positive
+    just equim exhibit_rest_positive
+    just fourier exhibit_rest_positive
 
 [doc("Generate negative rest equi-M sets")]
-gen_rest_negative:
+generate_rest_negative:
     just exhibit_rest_negative
-    just run exhibit_rest_negative
+    just equim exhibit_rest_negative
+    just fourier exhibit_rest_negative
 
 [doc("Generate emotion equi-M sets")]
-gen_emotion:
+generate_emotion:
     just exhibit_emotion
-    just run exhibit_emotion
+    just equim exhibit_emotion
+    just fourier exhibit_emotion
 
 [doc("Generate positive emotion equi-M sets")]
-gen_emotion_positive:
+generate_emotion_positive:
     just exhibit_emotion_positive
-    just run exhibit_emotion_positive
+    just equim exhibit_emotion_positive
+    just fourier exhibit_emotion_positive
 
 [doc("Generate negative rest equi-M sets")]
-gen_emotion_negative:
+generate_emotion_negative:
     just exhibit_emotion_negative
-    just run exhibit_emotion_negative
+    just equim exhibit_emotion_negative
+    just fourier exhibit_emotion_negative
 
 # }}}
 # {{{ clean
