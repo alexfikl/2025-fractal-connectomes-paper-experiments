@@ -5,7 +5,11 @@ Introduction
     :target: https://spdx.org/licenses/MIT.html
     :alt: MIT License
 
-|badge-license|
+.. |badge-zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.16921889.svg
+    :target: https://doi.org/10.5281/zenodo.16921889
+    :alt: Zenodo repository
+
+|badge-license| |badge-zenodo|
 
 This repository contains some scripts that were used to generate the equi-M
 sets from the paper. The versions of all the dependencies are fixed and should
