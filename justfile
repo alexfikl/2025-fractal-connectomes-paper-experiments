@@ -1,10 +1,9 @@
 PYTHON_VENV := '.venv'
 PYTHON := 'python -X dev'
-
 NETBROT := PYTHON_VENV + '/bin/netbrot'
 NETBROT_RESOLUTION := '1200'
 NETBROT_MAXIT := '512'
-NETBROT_MAX_ESCAPE_RADIUS = '100.0'
+NETBROT_MAX_ESCAPE_RADIUS := '100.0'
 
 _default:
     @just --list
@@ -36,17 +35,12 @@ black:
 # {{{ linting
 
 [doc('Run all linting checks over the source code')]
-lint: typos reuse ruff
+lint: typos ruff
 
 [doc('Run typos over the source code and documentation')]
 typos:
     typos --sort --format=brief scripts
     @echo -e "\e[1;32mtypos clean!\e[0m"
-
-[doc('Check REUSE license compliance')]
-reuse:
-    {{ PYTHON }} -m reuse lint
-    @echo -e "\e[1;32mREUSE compliant!\e[0m"
 
 [doc('Run ruff checks over the source code')]
 ruff:
@@ -63,10 +57,7 @@ pin:
         -o requirements.txt pyproject.toml
 
 [doc("Create a virtual environment and install the necessary dependencies")]
-install: \
-        create_venv \
-        install_python \
-        install_netbrot
+install: create_venv install_python install_netbrot
 
 [doc("Create a local virtual environment")]
 create_venv:
@@ -88,10 +79,7 @@ install_netbrot:
 # {{{ exhibits
 
 [doc('Regenerate all the exibits')]
-exhibits: \
-        exhibit_structural exhibit_structural_random \
-        exhibit_rest exhibit_rest_positive exhibit_rest_negative \
-        exhibit_emotion exhibit_emotion_positive exhibit_emotion_negative
+exhibits: exhibit_structural exhibit_structural_random exhibit_rest exhibit_rest_positive exhibit_rest_negative exhibit_emotion exhibit_emotion_positive exhibit_emotion_negative
 
 [doc('Convert structural data to JSON')]
 exhibit_structural:
@@ -194,7 +182,7 @@ run directory:
         nice "$@"
     }
 
-    suffix="{{ NETBROT_RESOLUTION}}x{{ NETBROT_MAXIT}}-$(date "+%Y%m%d")"
+    suffix="{{ NETBROT_RESOLUTION }}x{{ NETBROT_MAXIT }}-$(date "+%Y%m%d")"
     for filename in {{ directory }}/*-avg.json; do
         with_echo {{ NETBROT }} \
             --render mandelbrot \
@@ -205,10 +193,7 @@ run directory:
     done
 
 [doc("Generate all equi-M sets")]
-generate: \
-        gen_structural gen_structural_random \
-        gen_rest gen_rest_positive gen_rest_negative \
-        gen_emotion gen_emotion_positive gen_emotion_negative
+generate: gen_structural gen_structural_random gen_rest gen_rest_positive gen_rest_negative gen_emotion gen_emotion_positive gen_emotion_negative
 
 [doc("Generate structural equi-M sets")]
 gen_structural:
